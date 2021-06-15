@@ -1,6 +1,6 @@
 <template>
   <div class="productList container py-5">
-    <ul class="row">
+    <ul class="row" data-aos="fade-up">
       <li
         class="col-6 col-md-4 col-lg-3 mb-4"
         v-for="item in productsData"

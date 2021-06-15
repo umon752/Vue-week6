@@ -19,7 +19,6 @@
             <router-link class="nav-link active" to="/">首頁</router-link>
             <router-link class="nav-link" to="/productList">產品列表</router-link>
             <router-link class="nav-link" to="/cart">購物車</router-link>
-            <router-link class="nav-link" to="/login">登入</router-link>
           </div>
         </div>
       </div>

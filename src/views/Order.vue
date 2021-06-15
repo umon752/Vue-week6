@@ -118,9 +118,8 @@ export default {
       this.$http
         .post(url, order)
         .then((res) => {
-          console.log(res);
           if (res.data.success) {
-            console.log(res.data);
+            // console.log(res.data);
             // 顯示訊息
             this.$emit('resMessage', res.data.message);
             // 清除表單

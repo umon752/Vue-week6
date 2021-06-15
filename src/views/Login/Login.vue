@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" data-aos="fade-up">
     <div class="row justify-content-center vh-100 align-items-center">
       <div class="col-md-8 col-lg-4">
         <div class="row bg-white shadow">
@@ -85,9 +85,16 @@
       </div>
     </div>
   </div>
+  <router-view @loadingStatus="loadingStatus" @resMessage="resMessage" />
+    <ResMessage :resText="resObj.resMessage"
+    :resIsShow="resObj.isShowReaMessage" />
+    <Loading  v-if="isLoading" />
 </template>
 
 <script>
+import Loading from '@/components/Loading.vue';
+import ResMessage from '@/components/ResMessage.vue';
+
 export default {
   data() {
     return {
@@ -100,9 +107,25 @@ export default {
         token: '',
         expired: '',
       },
+      isLoading: false,
+      resObj: {
+        resMessage: '',
+        isShowReaMessage: false,
+      },
     };
   },
   methods: {
+    resMessage(text) {
+      // 顯示訊息
+      this.resObj.isShowReaMessage = true;
+      setTimeout(() => {
+        this.resObj.isShowReaMessage = false;
+      }, 1000);
+      this.resObj.resMessage = text;
+    },
+    loadingStatus(status) {
+      this.isLoading = status;
+    },
     changePasswordStatus() {
       if (this.passwordStatus === 'password') {
         this.passwordStatus = 'current-password';
@@ -117,11 +140,11 @@ export default {
         .post(url, this.userObj)
         .then((res) => {
           if (res.data.success) {
-            console.log(res.data);
+            // console.log(res.data);
             // 顯示訊息
             this.$emit('resMessage', res.data.message);
             // 轉址到 admin.html
-            this.$router.push('/dashboard');
+            this.$router.push('/admin');
             this.cookie.token = res.data.token;
             this.cookie.expired = res.data.expired;
             // 將 token 存入 cookie 內
@@ -140,6 +163,10 @@ export default {
           console.log(error);
         });
     },
+  },
+  components: {
+    Loading,
+    ResMessage,
   },
 };
 </script>

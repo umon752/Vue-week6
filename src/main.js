@@ -1,4 +1,6 @@
 import { createApp } from 'vue';
+// import * as VueAos from 'vue-aos';
+import AOS from 'aos';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import {
@@ -9,6 +11,8 @@ import { localize, setLocale } from '@vee-validate/i18n';
 import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json';
 import App from './App.vue';
 import router from './router';
+
+AOS.init();
 
 defineRule('email', email);
 defineRule('required', required);
@@ -22,6 +26,7 @@ setLocale('zh_TW'); // 強制設定預設的語系
 
 const app = createApp(App);
 app.use(router);
+app.use(AOS);
 app.use(VueAxios, axios);
 app.component('Form', Form);
 app.component('Field', Field);

@@ -117,7 +117,7 @@ export default {
       .get(url)
       .then((res) => {
         if (res.data.success) {
-          console.log(res, id);
+          // console.log(res, id);
           this.product = res.data.product;
         } else {
           // 顯示訊息

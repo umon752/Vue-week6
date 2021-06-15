@@ -2,19 +2,7 @@
   <div class="container my-5">
     <div class="row justify-content-center align-items-center">
       <div class="col-md-11 col-lg-10 col-xl-9 pb-3">
-        <div class="d-flex justify-content-between mb-3">
-          <h1
-            class="
-              h5
-              font-weight-normal
-              fw-bold
-              text-primary-light
-              d-flex
-              align-items-center
-            "
-          >
-            <span class="material-icons"> admin_panel_settings </span>Admin
-          </h1>
+        <div class="d-flex justify-content-end mb-3">
           <button type="button"
             class="
               btn btn-outline-primary-light btn-sm
@@ -109,15 +97,6 @@ export default {
       productsData: [],
       productObj: {
         evaluation: '',
-        // title: '',
-        // category: '',
-        // origin_price: '',
-        // price: '',
-        // unit: '',
-        // description: '',
-        // content: '',
-        // is_enabled: 0,
-        // imageUrl: '',
         imagesUrl: [],
       },
       modalObj: {
@@ -130,7 +109,7 @@ export default {
   },
   // watch: {
   //   productObj() {
-  //     console.log('外變化', this.productObj);
+  //     console.log('外層變化', this.productObj);
   //   },
   // },
   methods: {
@@ -163,33 +142,23 @@ export default {
         this.productObj = {
           ...item,
         };
-        // console.log(this.productObj);
       } else if (status === 'edit') {
         this.$refs.modal.openModal();
         this.showModal();
         this.productObj = {
           ...item,
         };
-        console.log('外層編輯', this.productObj);
+        // console.log('外層編輯', this.productObj);
         this.modalObj.modalTitle = '編輯';
       } else if (status === 'create') {
         this.$refs.modal.openModal();
         this.showModal();
         // 清空 input 內容
         this.productObj = {
-          evaluation: '',
-          title: '',
-          category: '',
-          origin_price: '',
-          price: '',
-          unit: '',
-          description: '',
-          content: '',
-          is_enabled: 0,
-          imageUrl: '',
-          imagesUrl: [],
+          // evaluation: '',
+          // imagesUrl: [],
         };
-        console.log('外層建立', this.productObj);
+        // console.log('外層建立', this.productObj);
         this.modalObj.modalTitle = '建立';
       }
     },
@@ -213,7 +182,7 @@ export default {
       this.$refs.delModal.closeModal();
     },
     updateProductData(item) {
-      console.log(item);
+      // console.log(item);
       // 建立
       let url;
       let method;
@@ -234,7 +203,7 @@ export default {
       })
         .then((res) => {
           if (res.data.success) {
-            console.log(res.data);
+            // console.log(res.data);
             // 顯示訊息
             this.$emit('resMessage', res.data.message);
             this.getProductsData();
@@ -253,6 +222,7 @@ export default {
   mounted() {
     // 取得產品資料
     this.getProductsData();
+    // console.log('外層 productObj', this.productObj);
   },
   components: {
     Pagination,

@@ -16,8 +16,8 @@
         </button>
         <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
           <div class="navbar-nav">
-            <router-link class="nav-link active" to="/dashboard">後台首頁</router-link>
-            <router-link class="nav-link" to="/admin">產品管理</router-link>
+            <router-link class="nav-link active" to="/admin">後台首頁</router-link>
+            <router-link class="nav-link" to="/admin/productList">產品管理</router-link>
           </div>
         </div>
       </div>

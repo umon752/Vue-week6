@@ -32,16 +32,16 @@ const routes = [
     component: () => import('../views/Login/Login.vue'),
   },
   {
-    path: '/dashboard',
+    path: '/admin',
     component: () => import('../views/Dashboard/Dashboard.vue'),
     children: [
       {
         path: '',
-        component: () => import('../views/Dashboard/DashboardIndex.vue'),
+        component: () => import('../views/Dashboard/Index.vue'),
       },
       {
-        path: '/admin',
-        component: () => import('../views/Dashboard/Admin.vue'),
+        path: 'productList',
+        component: () => import('../views/Dashboard/ProductList.vue'),
       },
     ],
   },

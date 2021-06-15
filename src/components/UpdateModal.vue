@@ -53,15 +53,14 @@
                       p-2
                     "
                     placeholder="請輸入圖片連結"
-                    :value="product.imageUrl"
-                    @input="updateProduct($event.target.value ,'imageUrl')"
+                    v-model="tempProduct.imageUrl"
                   />
                 </div>
-                <img class="img-fluid" :src="product.imageUrl" />
+                <img class="img-fluid" :src="tempProduct.imageUrl" />
               </div>
               <!-- 多圖新增 -->
               <div class="text-secondary mb-2">多圖新增</div>
-              <div v-for="(item, index) in product.imagesUrl" :key="index">
+              <div v-for="(item, index) in tempProduct.imagesUrl" :key="index">
                 <input
                   type="text"
                   class="
@@ -74,12 +73,11 @@
                     mb-2
                   "
                   placeholder="請輸入圖片連結"
-                  :value="product.imagesUrl[index]"
-                  @input="updateProduct($event.target.value, 'imagesUrl[index]')"
+                  v-model="tempProduct.imagesUrl[index]"
                 />
                 <img
                   class="img-fluid mb-2"
-                  :src="product.imagesUrl[index]"
+                  :src="tempProduct.imagesUrl[index]"
                 />
               </div>
 
@@ -94,7 +92,7 @@
                     me-1
                     mb-2 mb-lg-0
                   "
-                  @click="addImage(product)"
+                  @click="addImage(tempProduct)"
                 >
                   新增圖片
                 </button>
@@ -106,8 +104,8 @@
                     text-white
                     w-100 w-lg-auto
                   "
-                  :class="{ disabled: !product.imagesUrl }"
-                  @click="delImage(product)"
+                  :class="{ disabled: !tempProduct.imagesUrl }"
+                  @click="delImage(tempProduct)"
                 >
                   刪除圖片
                 </button>
@@ -128,13 +126,11 @@
                     mb-2
                   "
                   placeholder="請輸入圖片連結"
-                  :value="product.imagesUrl[product.imagesUrl.length - 1]"
-                  @input="updateProduct($event.target.value,
-                  'imagesUrl[product.imagesUrl.length - 1]')"
+                  v-model="tempProduct.imagesUrl[product.imagesUrl.length - 1]"
                 />
                 <img
                   class="img-fluid mb-2"
-                  :src="product.imagesUrl[product.imagesUrl.length - 1]"
+                  :src="tempProduct.imagesUrl[tempProduct.imagesUrl.length - 1]"
                 />
               </div>
             </div>
@@ -153,7 +149,7 @@
                     p-2
                   "
                   placeholder="請輸入標題"
-                  :value="product.title" @input="updateProduct($event.target.value, 'title')"
+                  v-model="tempProduct.title"
                 />
               </div>
 
@@ -172,8 +168,7 @@
                       p-2
                     "
                     placeholder="請輸入分類"
-                    :value="product.category"
-                    @input="updateProduct($event.target.value, 'category')"
+                    v-model="tempProduct.category"
                   />
                 </div>
                 <div class="form-group col-md-6 mb-3">
@@ -190,8 +185,7 @@
                       p-2
                     "
                     placeholder="請輸入單位"
-                    :value="product.unit"
-                    @input="updateProduct($event.target.value, 'unit')"
+                    v-model="tempProduct.unit"
                   />
                 </div>
               </div>
@@ -214,8 +208,7 @@
                       p-2
                     "
                     placeholder="請輸入原價"
-                    :value="product.origin_price"
-                    @input="updateProduct(parseInt($event.target.value), 'origin_price')"
+                    v-model.number="tempProduct.origin_price"
                   />
                 </div>
                 <div class="form-group col-md-6 mb-3">
@@ -233,8 +226,7 @@
                       p-2
                     "
                     placeholder="請輸入售價"
-                    :value="product.price"
-                    @input="updateProduct(parseInt($event.target.value), 'price')"
+                    v-model.number="tempProduct.price"
                   />
                 </div>
               </div>
@@ -257,8 +249,7 @@
                     p-2
                   "
                   placeholder="請輸入商品評價星級"
-                  :value="product.evaluation"
-                    @input="updateProduct(parseInt($event.target.value), 'evaluation')"
+                  v-model.number="tempProduct.evaluation"
                 />
               </div>
 
@@ -278,8 +269,7 @@
                     p-2
                   "
                   placeholder="請輸入產品描述"
-                  :value="product.description"
-                  @input="updateProduct($event.target.value, 'description')"
+                  v-model="tempProduct.description"
                 >
                 </textarea>
               </div>
@@ -299,7 +289,7 @@
                     p-2
                   "
                   placeholder="請輸入說明內容"
-                  :value="product.content" @input="updateProduct($event.target.value, 'content')"
+                  v-model="tempProduct.content"
                 >
                 </textarea>
               </div>
@@ -311,8 +301,7 @@
                     type="checkbox"
                     :true-value="1"
                     :false-value="0"
-                    :value="product.is_enabled"
-                    @input="updateProduct($event.target.value, 'is_enabled')"
+                    v-model="tempProduct.is_enabled"
                   />
                   <label
                     class="form-check-label text-secondary"
@@ -352,37 +341,17 @@ export default {
   data() {
     return {
       tempProduct: {},
-      // empty: {
-      //   title: '',
-      //   category: '',
-      //   origin_price: '',
-      //   price: '',
-      //   unit: '',
-      //   description: '',
-      //   content: '',
-      //   is_enabled: 0,
-      //   imageUrl: '',
-      //   imagesUrl: [],
-      // },
       modal: '',
     };
   },
   props: ['modalObj', 'product'],
-  // watch: {
-  //   tempProduct() {
-  //     // this.tempProduct = { ...this.product };
-  //     // console.log('內變化', this.product);
-  //     // // console.log('新值', this.emty);
-  //     // console.log('新值', this.tempProduct);
-  //     // console.log('是否', this.isShow);
-  //   },
-  // },
-  methods: {
-    updateProduct(item, input) {
-      // this.tempProduct = { ...this.product };
-      this.tempProduct[input] = item;
-      console.log('input 的值變化', input, this.tempProduct);
+  watch: {
+    product() {
+      this.tempProduct = { ...this.product };
+      // console.log('內變化', this.tempProduct);
     },
+  },
+  methods: {
     openModal() {
       this.modal.show();
     },
@@ -407,9 +376,6 @@ export default {
     },
   },
   mounted() {
-    this.tempProduct = { ...this.product };
-    console.log('內層 product', this.product);
-    console.log('內層 tempProduct', this.tempProduct);
     // modal 初始化
     this.modal = new Modal(this.$refs.modal);
   },
