@@ -45,6 +45,10 @@ const routes = [
       },
     ],
   },
+  {
+    path: '/:pathMatch(.*)*',
+    component: () => import('../views/Error/Error.vue'),
+  },
 ];
 
 const router = createRouter({
